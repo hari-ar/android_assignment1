@@ -1,0 +1,160 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:id="@+id/tv_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_message"
+        android:textSize="30sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="14dp" />
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="1.0"
+        android:inputType="numberDecimal"
+        android:layout_below="@+id/tv_display"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:id="@+id/currency_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/currency_value_from"
+        android:layout_alignBaseline="@+id/input"
+        android:layout_alignBottom="@+id/input"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="191dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_text"
+        android:onClick="submit"
+
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/input"
+        android:layout_alignParentStart="true"
+        android:id="@+id/button" />
+
+    <TextView
+        android:id="@+id/AUD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/AUD"
+        android:layout_below="@+id/button"
+        android:layout_toStartOf="@+id/button2" />
+
+    <TextView
+        android:id="@+id/CAD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/AUD"
+        android:layout_below="@+id/AUD"
+        android:layout_marginTop="24dp"
+        android:text="@string/CAD" />
+
+    <TextView
+        android:id="@+id/EUR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/EUR"
+        android:layout_below="@+id/CAD"
+        android:layout_alignStart="@+id/GBP" />
+
+    <TextView
+        android:id="@+id/GBP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/GBP"
+        android:layout_below="@+id/EUR"
+        android:layout_alignStart="@+id/CAD" />
+
+    <TextView
+        android:id="@+id/JPY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/JPY"
+        android:layout_below="@+id/GBP"
+        android:layout_alignStart="@+id/GBP" />
+
+    <TextView
+        android:id="@+id/USD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/USD"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/JPY"
+        android:layout_alignStart="@+id/JPY" />
+
+
+
+    <TextView
+        android:id="@+id/aud_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/AUD"
+        android:layout_marginStart="36dp"
+        android:layout_toEndOf="@+id/button2"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/cad_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/aud_value"
+        android:layout_alignTop="@+id/CAD"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/eur_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/GBP"
+        android:layout_alignStart="@+id/cad_value"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/gbp_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/eur_value"
+        android:layout_alignTop="@+id/GBP"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/jpy_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/gbp_value"
+        android:layout_alignTop="@+id/JPY"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/usd_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/jpy_value"
+        android:layout_alignTop="@+id/USD"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Button" />
+
+</RelativeLayout>

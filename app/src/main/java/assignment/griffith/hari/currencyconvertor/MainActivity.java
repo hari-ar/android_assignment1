@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.support.annotation.FloatRange;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,11 +15,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends Activity {
 
     private Spinner currencyFrom;
-    private TextView aud,cad,eur,gbp,jpy,usd;
+
+    HashMap<Integer,ArrayList<Float>> ratesMap = new HashMap<Integer,ArrayList<Float>>();
+
+    ArrayList<TextView> textViews = new ArrayList<TextView>();
     private EditText inputValue;
     private float userEnteredValue = 1.0f;
     private int currencySelected =0;
@@ -33,22 +38,9 @@ public class MainActivity extends Activity {
         Resources resources = getResources();
 
         currencyFrom = (Spinner) findViewById(R.id.currency_spinner);
-        aud = (TextView) findViewById(R.id.aud_value);
-        cad = (TextView) findViewById(R.id.cad_value);
-        eur = (TextView) findViewById(R.id.eur_value);
-        gbp = (TextView) findViewById(R.id.gbp_value);
-        jpy = (TextView) findViewById(R.id.jpy_value);
-        usd = (TextView) findViewById(R.id.usd_value);
 
-
-
-
-        ratesArray.add(0, resources.obtainTypedArray(R.array.AUD));
-        ratesArray.add(1, resources.obtainTypedArray(R.array.CAD));
-        ratesArray.add(2, resources.obtainTypedArray(R.array.EUR));
-        ratesArray.add(3, resources.obtainTypedArray(R.array.GBP));
-        ratesArray.add(4, resources.obtainTypedArray(R.array.JPY));
-        ratesArray.add(5, resources.obtainTypedArray(R.array.USD));
+        initializeTextViewArray();
+        populateRatesMap();
 
 
 
@@ -69,6 +61,28 @@ public class MainActivity extends Activity {
 
         populateValues();
 
+    }
+
+    private ArrayList<Float> getFloatArrayFromTypedArray(TypedArray typedArray) {
+        ArrayList<Float> localRateFloatArray = new ArrayList<Float>();
+        for(int i =0;i<6;i++){
+            localRateFloatArray.add(i,typedArray.getFloat(i,0));
+        }
+        return localRateFloatArray;
+
+    }
+
+
+
+
+    private void populateRatesMap(){
+        Resources resources = getResources();
+        ratesMap.put(0,getFloatArrayFromTypedArray(resources.obtainTypedArray(R.array.AUD)));
+        ratesMap.put(1,getFloatArrayFromTypedArray(resources.obtainTypedArray(R.array.CAD)));
+        ratesMap.put(2,getFloatArrayFromTypedArray(resources.obtainTypedArray(R.array.EUR)));
+        ratesMap.put(3,getFloatArrayFromTypedArray(resources.obtainTypedArray(R.array.GBP)));
+        ratesMap.put(4,getFloatArrayFromTypedArray(resources.obtainTypedArray(R.array.JPY)));
+        ratesMap.put(5,getFloatArrayFromTypedArray(resources.obtainTypedArray(R.array.USD)));
     }
 
     public void submit(View args0){
@@ -96,14 +110,19 @@ public class MainActivity extends Activity {
 
     private void populateValues(){
 
-        TypedArray localArray = ratesArray.get(currencySelected);
+        for (int i =0; i<6;i++){
+            textViews.get(i).setText(Float.toString(ratesMap.get(currencySelected).get(i)));
+        }
 
-        aud.setText(Float.toString(userEnteredValue*localArray.getFloat(0,0)));
-        cad.setText(Float.toString(userEnteredValue*localArray.getFloat(1,0)));
-        eur.setText(Float.toString(userEnteredValue*localArray.getFloat(2,0)));
-        gbp.setText(Float.toString(userEnteredValue*localArray.getFloat(3,0)));
-        jpy.setText(Float.toString(userEnteredValue*localArray.getFloat(4,0)));
-        usd.setText(Float.toString(userEnteredValue*localArray.getFloat(5,0)));
+    }
+
+    private void initializeTextViewArray(){
+        textViews.add(0,(TextView) findViewById(R.id.aud_value));
+        textViews.add(1,(TextView) findViewById(R.id.cad_value));
+        textViews.add(2,(TextView) findViewById(R.id.eur_value));
+        textViews.add(3,(TextView) findViewById(R.id.gbp_value));
+        textViews.add(4,(TextView) findViewById(R.id.jpy_value));
+        textViews.add(5,(TextView) findViewById(R.id.usd_value));
     }
 
     private boolean isValidNumber(String userGivenInput) {

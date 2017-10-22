@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private Spinner currencyFrom;
     private TextView aud,cad,eur,gbp,jpy,usd;
     private EditText inputValue;
-    private float userEnteredValue = -1.0f;
+    private float userEnteredValue = 1.0f;
     private int currencySelected =0;
 
     private TypedArray[] ratesArray = new TypedArray[6];
@@ -63,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
 
         TypedArray localArray = ratesArray[currencySelected];
 
-        aud.setText(Float.toString(userEnteredValue*localArray.getFloat(0,0)));
-        cad.setText(Float.toString(userEnteredValue*localArray.getFloat(1,0)));
-        eur.setText(Float.toString(userEnteredValue*localArray.getFloat(2,0)));
-        gbp.setText(Float.toString(userEnteredValue*localArray.getFloat(3,0)));
-        jpy.setText(Float.toString(userEnteredValue*localArray.getFloat(4,0)));
-        usd.setText(Float.toString(userEnteredValue*localArray.getFloat(5,0)));
+        aud.setText(Float.toString(localArray.getFloat(0,0)));
+        cad.setText(Float.toString(localArray.getFloat(1,0)));
+        eur.setText(Float.toString(localArray.getFloat(2,0)));
+        gbp.setText(Float.toString(localArray.getFloat(3,0)));
+        jpy.setText(Float.toString(localArray.getFloat(4,0)));
+        usd.setText(Float.toString(localArray.getFloat(5,0)));
 
 
        // finalValue = (TextView) findViewById(R.id.output);

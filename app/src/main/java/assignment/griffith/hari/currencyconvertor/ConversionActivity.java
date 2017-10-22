@@ -41,15 +41,15 @@ public class ConversionActivity extends Activity {
 
         TypedArray localArray = ratesArray.get(0);
 
-        //aud.setHint(Float.toString(localArray.getFloat(0,0)));
+        aud.setHint(Float.toString(localArray.getFloat(0,0)));
 
-        aud.setHint("Test");
+        //aud.setHint("Test");
         cad.setHint(Float.toString(localArray.getFloat(1,0)));
         eur.setHint(Float.toString(localArray.getFloat(2,0)));
         gbp.setHint(Float.toString(localArray.getFloat(3,0)));
         jpy.setHint(Float.toString(localArray.getFloat(4,0)));
         usd.setHint(Float.toString(localArray.getFloat(5,0)));
-
+        
     }
 
 

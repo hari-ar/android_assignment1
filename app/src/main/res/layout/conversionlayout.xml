@@ -31,7 +31,7 @@
         android:textSize="15sp"
         android:text="Please Enter rates of currencies you want to change" />
     <TextView
-        android:id="@+id/AUD"
+        android:id="@+id/tb_aud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -40,114 +40,120 @@
         />
 
     <TextView
-        android:id="@+id/CAD"
+        android:id="@+id/tb_cad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/AUD"
-        android:layout_below="@+id/AUD"
+        android:layout_alignStart="@+id/tb_aud"
+        android:layout_below="@+id/tb_aud"
         android:layout_marginTop="24dp"
         android:text="@string/CAD" />
 
     <TextView
-        android:id="@+id/EUR"
+        android:id="@+id/tb_eur"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/EUR"
-        android:layout_below="@+id/CAD"
+        android:layout_below="@+id/tb_cad"
         android:layout_alignStart="@+id/GBP" />
 
     <TextView
-        android:id="@+id/GBP"
+        android:id="@+id/tb_gbp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/GBP"
-        android:layout_below="@+id/EUR"
+        android:layout_below="@+id/tb_eur"
         android:layout_alignStart="@+id/CAD" />
 
     <TextView
-        android:id="@+id/JPY"
+        android:id="@+id/tb_jpy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/JPY"
-        android:layout_below="@+id/GBP"
-        android:layout_alignStart="@+id/GBP" />
+        android:layout_below="@+id/tb_gbp"
+        android:layout_alignStart="@+id/tb_gbp" />
 
     <TextView
-        android:id="@+id/USD"
+        android:id="@+id/tb_usd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/USD"
         android:layout_marginTop="24dp"
-        android:layout_below="@+id/JPY"
-        android:layout_alignStart="@+id/JPY" />
+        android:layout_below="@+id/tb_jpy"
+        android:layout_alignStart="@+id/tb_jpy" />
 
     <EditText
         android:id="@+id/conv_aud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ellipsize="middle"
+        android:hint="1.0"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:layout_alignTop="@+id/AUD"
-        android:layout_alignStart="@+id/conv_cad"
-        android:layout_alignBottom="@+id/AUD" />
+        android:layout_alignBaseline="@+id/tb_aud"
+        android:layout_alignBottom="@+id/tb_aud"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:id="@+id/conv_cad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="1.0"
         android:inputType="numberDecimal"
-        android:layout_alignTop="@+id/CAD"
-        android:layout_alignStart="@+id/conv_eur"
-        android:layout_alignBottom="@+id/CAD" />
+        android:layout_alignBaseline="@+id/tb_cad"
+        android:layout_alignBottom="@+id/tb_cad"
+        android:layout_alignParentEnd="true" />
 
 
 
 
     <EditText
         android:id="@+id/conv_eur"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/GBP"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/EUR"
-        android:ems="10"
-        android:inputType="numberDecimal" />
-
-    <EditText
-        android:id="@+id/conv_gbp"
+        android:hint="1.0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:layout_alignTop="@+id/GBP"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/GBP" />
+        android:layout_below="@+id/conv_cad"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:id="@+id/conv_gbp"
+        android:layout_width="wrap_content"
+        android:hint="1.0"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:layout_alignBaseline="@+id/tb_gbp"
+        android:layout_alignBottom="@+id/tb_gbp"
+        android:layout_alignParentEnd="true" />
 
 
 
     <EditText
         android:id="@+id/conv_jpy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/JPY"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/JPY"
-        android:ems="10"
-        android:inputType="numberDecimal" />
-
-    <EditText
-        android:id="@+id/conv_usd"
+        android:hint="1.0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:layout_alignTop="@+id/USD"
-        android:layout_alignStart="@+id/conv_gbp"
-        android:layout_alignBottom="@+id/USD" />
+        android:layout_alignBaseline="@+id/tb_jpy"
+        android:layout_alignBottom="@+id/tb_jpy"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:id="@+id/conv_usd"
+        android:layout_width="wrap_content"
+        android:hint="1.0"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:layout_alignBaseline="@+id/tb_usd"
+        android:layout_alignBottom="@+id/tb_usd"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/button3"
@@ -155,7 +161,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Submit Exchange Rates"
-        android:layout_below="@+id/USD"
+        android:layout_below="@+id/tb_usd"
         android:onClick="editRates"
         android:layout_centerHorizontal="true" />
 

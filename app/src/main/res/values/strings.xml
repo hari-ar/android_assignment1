@@ -5,11 +5,12 @@
     <integer name="default_value">1</integer>
     <string name="button_text">Submit</string>
     <string name="empty_message"></string>
+
     <string-array name="currency_value_from">
         <item>Australian Dollar    AUD</item>
         <item>Canadian Dollar      CAD</item>
         <item>Euro                 EUR</item>
-        <item>Great Britan Pound   GBP</item>
+        <item>Great Britain Pound   GBP</item>
         <item>Japanese Yen         JPY</item>
         <item>US Dollar            USD</item>
     </string-array>

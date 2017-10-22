@@ -1,5 +1,7 @@
 package assignment.griffith.hari.currencyconvertor;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +13,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends Activity {
 
     private Spinner currencyFrom;
     private TextView aud,cad,eur,gbp,jpy,usd;
@@ -19,13 +23,13 @@ public class MainActivity extends AppCompatActivity {
     private float userEnteredValue = 1.0f;
     private int currencySelected =0;
 
-    private TypedArray[] ratesArray = new TypedArray[6];
+
+    public static ArrayList<TypedArray> ratesArray = new ArrayList<TypedArray>() ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Resources resources = getResources();
 
         currencyFrom = (Spinner) findViewById(R.id.currency_spinner);
@@ -36,12 +40,15 @@ public class MainActivity extends AppCompatActivity {
         jpy = (TextView) findViewById(R.id.jpy_value);
         usd = (TextView) findViewById(R.id.usd_value);
 
-        ratesArray[0] = resources.obtainTypedArray(R.array.AUD);
-        ratesArray[1] = resources.obtainTypedArray(R.array.CAD);
-        ratesArray[2] = resources.obtainTypedArray(R.array.EUR);
-        ratesArray[3] = resources.obtainTypedArray(R.array.GBP);
-        ratesArray[4] = resources.obtainTypedArray(R.array.JPY);
-        ratesArray[5] = resources.obtainTypedArray(R.array.USD);
+
+
+
+        ratesArray.add(0, resources.obtainTypedArray(R.array.AUD));
+        ratesArray.add(1, resources.obtainTypedArray(R.array.CAD));
+        ratesArray.add(2, resources.obtainTypedArray(R.array.EUR));
+        ratesArray.add(3, resources.obtainTypedArray(R.array.GBP));
+        ratesArray.add(4, resources.obtainTypedArray(R.array.JPY));
+        ratesArray.add(5, resources.obtainTypedArray(R.array.USD));
 
 
 
@@ -53,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 currencySelected = position;
 
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -61,40 +67,43 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        TypedArray localArray = ratesArray[currencySelected];
+        populateValues();
 
-        aud.setText(Float.toString(localArray.getFloat(0,0)));
-        cad.setText(Float.toString(localArray.getFloat(1,0)));
-        eur.setText(Float.toString(localArray.getFloat(2,0)));
-        gbp.setText(Float.toString(localArray.getFloat(3,0)));
-        jpy.setText(Float.toString(localArray.getFloat(4,0)));
-        usd.setText(Float.toString(localArray.getFloat(5,0)));
-
-
-       // finalValue = (TextView) findViewById(R.id.output);
     }
 
     public void submit(View args0){
 
         inputValue = (EditText) findViewById(R.id.input);
-        //Call to validate input text
         if(isValidNumber(inputValue.getText().toString())){
-
-            TypedArray localArray = ratesArray[currencySelected];
-
-            aud.setText(Float.toString(userEnteredValue*localArray.getFloat(0,0)));
-            cad.setText(Float.toString(userEnteredValue*localArray.getFloat(1,0)));
-            eur.setText(Float.toString(userEnteredValue*localArray.getFloat(2,0)));
-            gbp.setText(Float.toString(userEnteredValue*localArray.getFloat(3,0)));
-            jpy.setText(Float.toString(userEnteredValue*localArray.getFloat(4,0)));
-            usd.setText(Float.toString(userEnteredValue*localArray.getFloat(5,0)));
+            populateValues();
         }
-
         else
         {
-            Toast.makeText(this,"Please enter valid number..!!",Toast.LENGTH_LONG);
+            Toast.makeText(this,"Please enter valid number..!! Showing values of defalut",Toast.LENGTH_LONG);
+            populateValues();
+
         }
 
+    }
+
+    public void editCurrencyRates(View args0){
+
+        Intent intent = new Intent(MainActivity.this, ConversionActivity.class);
+        //intent.putExtra("rates",ratesArray);
+        startActivity(intent);
+
+    }
+
+    private void populateValues(){
+
+        TypedArray localArray = ratesArray.get(currencySelected);
+
+        aud.setText(Float.toString(userEnteredValue*localArray.getFloat(0,0)));
+        cad.setText(Float.toString(userEnteredValue*localArray.getFloat(1,0)));
+        eur.setText(Float.toString(userEnteredValue*localArray.getFloat(2,0)));
+        gbp.setText(Float.toString(userEnteredValue*localArray.getFloat(3,0)));
+        jpy.setText(Float.toString(userEnteredValue*localArray.getFloat(4,0)));
+        usd.setText(Float.toString(userEnteredValue*localArray.getFloat(5,0)));
     }
 
     private boolean isValidNumber(String userGivenInput) {
@@ -103,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
              userEnteredValue = Float.parseFloat(userGivenInput);
         }
         catch (NumberFormatException e){
+            userEnteredValue = 1.0f;
             Toast.makeText(this,"Please enter valid number..!!",Toast.LENGTH_LONG);
             return false;
         }

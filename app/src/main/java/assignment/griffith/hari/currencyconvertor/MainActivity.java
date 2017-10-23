@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
 
     private Spinner currencyFrom;
 
-    HashMap<Integer,ArrayList<Float>> ratesMap = new HashMap<Integer,ArrayList<Float>>();
+    public static HashMap<Integer,ArrayList<Float>> ratesMap = new HashMap<Integer,ArrayList<Float>>();
 
     ArrayList<TextView> textViews = new ArrayList<TextView>();
     private EditText inputValue;
@@ -29,21 +29,19 @@ public class MainActivity extends Activity {
     private int currencySelected =0;
 
 
-    public static ArrayList<TypedArray> ratesArray = new ArrayList<TypedArray>() ;
+    //public static ArrayList<TypedArray> ratesArray = new ArrayList<TypedArray>() ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Resources resources = getResources();
+
+        //Resources resources = getResources();
 
         currencyFrom = (Spinner) findViewById(R.id.currency_spinner);
 
         initializeTextViewArray();
         populateRatesMap();
-
-
-
         inputValue = (EditText) findViewById(R.id.input);
 
         currencyFrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -103,7 +101,7 @@ public class MainActivity extends Activity {
     public void editCurrencyRates(View args0){
 
         Intent intent = new Intent(MainActivity.this, ConversionActivity.class);
-        //intent.putExtra("rates",ratesArray);
+        //intent.putExtra("rates",ratesMap);
         startActivity(intent);
 
     }
@@ -111,7 +109,7 @@ public class MainActivity extends Activity {
     private void populateValues(){
 
         for (int i =0; i<6;i++){
-            textViews.get(i).setText(Float.toString(ratesMap.get(currencySelected).get(i)));
+            textViews.get(i).setText(Float.toString(userEnteredValue*ratesMap.get(currencySelected).get(i)));
         }
 
     }
@@ -138,4 +136,6 @@ public class MainActivity extends Activity {
         return true;
 
     }
+
+
 }

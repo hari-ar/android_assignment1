@@ -23,7 +23,7 @@ import java.util.HashMap;
 
 public class ConversionActivity extends Activity {
 
-    HashMap<Integer,ArrayList<Float>> ratesMap = new HashMap<Integer,ArrayList<Float>>();
+    private ArrayList<Float> ratesList = new ArrayList<Float>();
 
     ArrayList<EditText> editTexts = new ArrayList<EditText>();
     //EditText[] editTexts = new EditText[6];
@@ -38,35 +38,22 @@ public class ConversionActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conversionlayout);
 
+        Bundle bundle = getIntent().getExtras();
+        ratesList = (ArrayList<Float>) bundle.get("rates");
 
-        ratesMap = MainActivity.ratesMap;
+        //ratesMap = MainActivity.ratesMap;
 
        // Resources resources = getResources();
-        conversionSpinner = (Spinner) findViewById(R.id.conversion_currency_spinner);
+        //conversionSpinner = (Spinner) findViewById(R.id.conversion_currency_spinner);
 
         populateEditTextArrayList();
 
 
         for (int i = 0; i<6; i++){
-            editTexts.get(i).setHint(Float.toString(ratesMap.get(currencySelected).get(i)));
+            if(i!=2)
+            editTexts.get(i).setHint(Float.toString(ratesList.get(i)));
         }
 
-        conversionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                currencySelected = position;
-                populateEditTextArrayList();
-                for (int i = 0; i<6; i++){
-                    editTexts.get(i).setHint(Float.toString(ratesMap.get(currencySelected).get(i)));
-                }
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-
-        });
 
     }
 
@@ -74,7 +61,7 @@ public class ConversionActivity extends Activity {
 
         editTexts.add(0,(EditText) findViewById(R.id.conv_aud));
         editTexts.add(1,(EditText) findViewById(R.id.conv_cad));
-        editTexts.add(2,(EditText) findViewById(R.id.conv_eur));
+        editTexts.add(2,(EditText) findViewById(R.id.conv_cad));
         editTexts.add(3,(EditText) findViewById(R.id.conv_gbp));
         editTexts.add(4,(EditText) findViewById(R.id.conv_jpy));
         editTexts.add(5,(EditText) findViewById(R.id.conv_usd));
@@ -82,10 +69,20 @@ public class ConversionActivity extends Activity {
     }
 
     public void editRates(View args0) {
+        ArrayList<Float> floatlist = new ArrayList<Float>();
         populateEditTextArrayList();
-        ratesMap.put(currencySelected,getFloatArrayFromEditTextList(editTexts));
-        populateEditTextArrayList();
+        for (int i=0;i<6;i++)
+        {
+            if(i==2)
+                floatlist.add(i,1f);
+            else
+            floatlist.add(i,getRateFromInput(i));
+        }
+
         Toast.makeText(this,"Values are persisted..!!",Toast.LENGTH_SHORT);
+        Intent result = new Intent(Intent.ACTION_VIEW);
+        result.putExtra("rates", floatlist);
+        setResult(RESULT_OK, result);
         finish();
     }
 
@@ -100,7 +97,7 @@ public class ConversionActivity extends Activity {
     }
 
     float getRateFromInput(int index){
-        float currentRate = ratesMap.get(currencySelected).get(index);
+        float currentRate = ratesList.get(index);
         String userGivenValue = editTexts.get(index).getText().toString();
         if(isValidNumber(userGivenValue)){
            return Float.parseFloat(userGivenValue);
@@ -111,6 +108,9 @@ public class ConversionActivity extends Activity {
     private boolean isValidNumber(String userGivenInput) {
         try{
             float userEnteredValue = Float.parseFloat(userGivenInput);
+
+            if (userEnteredValue ==0)
+                    throw new NumberFormatException();
         }
         catch (NumberFormatException e){
             return false;

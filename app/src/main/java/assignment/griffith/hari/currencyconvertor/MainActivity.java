@@ -21,7 +21,9 @@ public class MainActivity extends Activity {
 
     private Spinner currencyFrom;
 
-    public static HashMap<Integer,ArrayList<Float>> ratesMap = new HashMap<Integer,ArrayList<Float>>();
+    //public static HashMap<Integer,ArrayList<Float>> ratesMap = new HashMap<Integer,ArrayList<Float>>();
+
+    private ArrayList<Float> ratesList = new ArrayList<Float>();
 
     ArrayList<TextView> textViews = new ArrayList<TextView>();
     private EditText inputValue;
@@ -61,27 +63,17 @@ public class MainActivity extends Activity {
 
     }
 
-    private ArrayList<Float> getFloatArrayFromTypedArray(TypedArray typedArray) {
-        ArrayList<Float> localRateFloatArray = new ArrayList<Float>();
+    private void populateRatesMap() {
+        TypedArray typedArray = getResources().obtainTypedArray(R.array.EUR);
         for(int i =0;i<6;i++){
-            localRateFloatArray.add(i,typedArray.getFloat(i,0));
+            ratesList.add(i,typedArray.getFloat(i,0));
         }
-        return localRateFloatArray;
-
     }
 
 
 
 
-    private void populateRatesMap(){
-        Resources resources = getResources();
-        ratesMap.put(0,getFloatArrayFromTypedArray(resources.obtainTypedArray(R.array.AUD)));
-        ratesMap.put(1,getFloatArrayFromTypedArray(resources.obtainTypedArray(R.array.CAD)));
-        ratesMap.put(2,getFloatArrayFromTypedArray(resources.obtainTypedArray(R.array.EUR)));
-        ratesMap.put(3,getFloatArrayFromTypedArray(resources.obtainTypedArray(R.array.GBP)));
-        ratesMap.put(4,getFloatArrayFromTypedArray(resources.obtainTypedArray(R.array.JPY)));
-        ratesMap.put(5,getFloatArrayFromTypedArray(resources.obtainTypedArray(R.array.USD)));
-    }
+
 
     public void submit(View args0){
 
@@ -101,17 +93,23 @@ public class MainActivity extends Activity {
     public void editCurrencyRates(View args0){
 
         Intent intent = new Intent(MainActivity.this, ConversionActivity.class);
-        //intent.putExtra("rates",ratesMap);
-        startActivity(intent);
+        intent.putExtra("rates",ratesList);
+        startActivityForResult(intent,0);
 
     }
 
     private void populateValues(){
 
         for (int i =0; i<6;i++){
-            textViews.get(i).setText(Float.toString(userEnteredValue*ratesMap.get(currencySelected).get(i)));
+            textViews.get(i).setText(Float.toString(userEnteredValue*getMultiplier(i)));
         }
 
+    }
+
+    private float getMultiplier(int output) {
+        float to_rate = ratesList.get(output);
+        float inverse_from_rate = 1/ratesList.get(currencySelected);
+        return to_rate*inverse_from_rate;
     }
 
     private void initializeTextViewArray(){
@@ -135,6 +133,17 @@ public class MainActivity extends Activity {
         }
         return true;
 
+    }
+
+
+    protected void onActivityResult(int request, int result, Intent data) {
+
+        if(request == 0 && result == RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            ratesList = (ArrayList<Float>) bundle.get("rates");
+            Toast.makeText(this,"Successfully reset with current rates",Toast.LENGTH_LONG);
+            populateValues();
+        }
     }
 
 

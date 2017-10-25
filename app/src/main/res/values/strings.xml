@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CurrencyConverter</string>
     <string name="welcome_message">Enter the amount</string>
-    <string name="conversion_welcome_message">Please select base currency</string>
+    <string name="conversion_welcome_message">Please edit rates below</string>
     <integer name="default_value">1</integer>
     <string name="button_text">Submit</string>
     <string name="empty_message"></string>

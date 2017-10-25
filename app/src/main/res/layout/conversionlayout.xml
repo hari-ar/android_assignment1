@@ -3,33 +3,17 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/tv_display"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/conversion_welcome_message"
-        android:textSize="30sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="14dp" />
-    <Spinner
-        android:id="@+id/conversion_currency_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/currency_value_from"
-        android:layout_below="@+id/tv_display"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp" />
+
 
     <TextView
         android:id="@+id/second_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/conversion_currency_spinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:textSize="15sp"
-        android:text="Please Enter rates of currencies you want to change" />
+        android:text="Please Enter rates of currencies  with respect to 1 Euro" />
+
     <TextView
         android:id="@+id/tb_aud"
         android:layout_width="wrap_content"
@@ -48,14 +32,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/CAD" />
 
-    <TextView
-        android:id="@+id/tb_eur"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/EUR"
-        android:layout_below="@+id/tb_cad"
-        android:layout_alignStart="@+id/GBP" />
+
 
     <TextView
         android:id="@+id/tb_gbp"
@@ -63,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/GBP"
-        android:layout_below="@+id/tb_eur"
+        android:layout_below="@+id/tb_cad"
         android:layout_alignStart="@+id/CAD" />
 
     <TextView
@@ -111,24 +88,13 @@
 
 
     <EditText
-        android:id="@+id/conv_eur"
+        android:id="@+id/conv_gbp"
         android:hint="1.0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="numberDecimal"
         android:layout_below="@+id/conv_cad"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:id="@+id/conv_gbp"
-        android:layout_width="wrap_content"
-        android:hint="1.0"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:layout_alignBaseline="@+id/tb_gbp"
-        android:layout_alignBottom="@+id/tb_gbp"
         android:layout_alignParentEnd="true" />
 
 

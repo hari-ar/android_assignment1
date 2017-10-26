@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,11 +19,16 @@ public class MainActivity extends Activity {
     //Variable to read input spinner values
     private Spinner currencyFrom;
 
-    //Array List to store rates wrt Euro in alphabetical order
-    private ArrayList<Float> ratesList = new ArrayList<Float>();
+    //Array List to store name, code and rates wrt Euro in alphabetical order
+    private ArrayList<Float> ratesList = new ArrayList<>();
+    private ArrayList<String> codeList = new ArrayList<>();
+    private ArrayList<String> nameList = new ArrayList<>();
 
-    //Array List containing textviews in alphabetical order for easily displaying rates
-    ArrayList<TextView> textViews = new ArrayList<TextView>();
+
+
+    ArrayList<CurrencyViewItem> currencyViewItems = new ArrayList<CurrencyViewItem>();
+
+    ListView listView;
 
     // Edit text which reads user input
     private EditText inputValue;
@@ -32,6 +38,8 @@ public class MainActivity extends Activity {
     //Pointer to identify spinner position / currency selected.
     private int currencySelected =0;
 
+    CurrecyArrayAdapter currecyArrayAdapter;
+
 
 
     @Override
@@ -39,12 +47,17 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        listView = (ListView) findViewById(R.id.rates_display_list_view); //Initialize our currency list View
 
         currencyFrom = (Spinner) findViewById(R.id.currency_spinner); // Initialize spinner
 
-        initializeTextViewArray(); // Method to initialize text View Array
 
-        populateRatesList(); // Method to read conversion rates from xml and store in to array list for easy navigation and mapping.
+        // initializeTextViewArray(); // Method to initialize text View Array
+        populateListFromTypedArray(getResources().obtainTypedArray(R.array.currency_name_list),nameList);
+        populateListFromTypedArray(getResources().obtainTypedArray(R.array.currency_code_list),codeList);
+        populateListFromTypedArrayFloat(getResources().obtainTypedArray(R.array.EUR),ratesList); // Method to read conversion rates from xml and store in to array list for easy navigation and mapping.
+
+
 
         inputValue = (EditText) findViewById(R.id.input); //Initialize edit text to read user input value
 
@@ -62,19 +75,26 @@ public class MainActivity extends Activity {
 
         });
 
+
         populateValues(); // Method used to populate values in text views post conversion.
 
     }
 
 
     //This method is used to populate the conversion rates array list in alphabetically increasing order
-    // Index 0 to AUD, 1 to CAD , 2 to EUR which is 1 always., and so on..
-    private void populateRatesList() {
-
-        TypedArray typedArray = getResources().obtainTypedArray(R.array.EUR); // Temp array to read from XML
+    private void populateListFromTypedArrayFloat(TypedArray typedArray, ArrayList list){
+        list.clear();
 
         for(int index =0;index<6;index++){
-            ratesList.add(index,typedArray.getFloat(index,0)); // Conversion from typed array to array list.
+            list.add(index,typedArray.getFloat(index,0)); // Conversion from typed array to array list.
+        }
+    }
+
+    private void populateListFromTypedArray(TypedArray typedArray, ArrayList list){
+        list.clear();
+
+        for(int index =0;index<6;index++){
+            list.add(index,typedArray.getString(index)); // Conversion from typed array to array list.
         }
     }
 
@@ -112,14 +132,29 @@ public class MainActivity extends Activity {
 
     }
 
-    //Method Used to set final converted values in textbox to display to usr
-    private void populateValues(){
-
-        for (int i =0; i<6;i++){
-            textViews.get(i).setText(Float.toString(userEnteredValue*getMultiplier(i))); // Multiplies input with multiplier
+    public void populateValues(){
+        currencyViewItems.clear();
+        for(int index=0;index<6;index++)
+        {
+            if(index!=currencySelected)
+            currencyViewItems.add(new CurrencyViewItem(nameList.get(index),codeList.get(index),userEnteredValue*getMultiplier(index)));
         }
-
+        currecyArrayAdapter = new CurrecyArrayAdapter(this, currencyViewItems);
+        listView.setAdapter(currecyArrayAdapter);
     }
+
+
+    //Method Used to set final converted values in textbox to display to usr
+    //private void populateValues(){
+
+       /* for (int i =0; i<6;i++){
+            textViews.get(i).setText(Float.toString(userEnteredValue*getMultiplier(i))); // Multiplies input with multiplier
+        }*/
+
+
+
+
+    //}
 
     //Method to get multiplier for output currency position.
     // Selects input currency based on spinner position
@@ -129,15 +164,7 @@ public class MainActivity extends Activity {
         return to_rate*inverse_from_rate;
     }
 
-    //Method to set textview arrays to make it easier to loop it through and populate values
-    private void initializeTextViewArray(){
-        textViews.add(0,(TextView) findViewById(R.id.aud_value));
-        textViews.add(1,(TextView) findViewById(R.id.cad_value));
-        textViews.add(2,(TextView) findViewById(R.id.eur_value));
-        textViews.add(3,(TextView) findViewById(R.id.gbp_value));
-        textViews.add(4,(TextView) findViewById(R.id.jpy_value));
-        textViews.add(5,(TextView) findViewById(R.id.usd_value));
-    }
+
 
     //Input Validation Test Method is isValidNumberMethodTest
      boolean isValidNumber(String userGivenInput) {

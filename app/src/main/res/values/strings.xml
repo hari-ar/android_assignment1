@@ -15,12 +15,37 @@
         <item>US Dollar            USD</item>
     </string-array>
 
-    <string name="AUD">Australian Dollar    AUD</string>
-    <string name="CAD">Canadian Dollar      CAD</string>
-    <string name="EUR">Euro                 EUR</string>
-    <string name="GBP">Great Britan Pound   GBP</string>
-    <string name="JPY">Japanese Yen         JPY</string>
-    <string name="USD">US Dollar            USD</string>
+    <string name="AUD_name">Australian Dollar</string>
+    <string name="CAD_name">Canadian Dollar</string>
+    <string name="EUR_name">Euro</string>
+    <string name="GBP_name">Great Britan Pound</string>
+    <string name="JPY_name">Japanese Yen</string>
+    <string name="USD_name">US Dollar</string>
+
+    <string name="AUD">AUD</string>
+    <string name="CAD">CAD</string>
+    <string name="EUR">EUR</string>
+    <string name="GBP">GBP</string>
+    <string name="JPY">JPY</string>
+    <string name="USD">USD</string>
+
+    <string-array name="currency_code_list">
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>EUR</item>
+        <item>GBP</item>
+        <item>JPY</item>
+        <item>USD</item>
+    </string-array>
+
+    <string-array name="currency_name_list">
+        <item>Australian Dollar</item>
+        <item>Canadian Dollar</item>
+        <item>Euro</item>
+        <item>Great Britain Pound</item>
+        <item>Japanese Yen</item>
+        <item>United States Dollar</item>
+    </string-array>
 
 
 </resources>

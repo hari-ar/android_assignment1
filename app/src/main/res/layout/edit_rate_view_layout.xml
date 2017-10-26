@@ -41,7 +41,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/GBP"
         android:layout_below="@+id/tb_cad"
-        android:layout_alignStart="@+id/CAD" />
+        android:layout_alignStart="@+id/cad" />
 
     <TextView
         android:id="@+id/tb_jpy"

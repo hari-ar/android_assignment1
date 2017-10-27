@@ -1,69 +1,59 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_gravity="bottom"
     >
+
     <TextView
         android:id="@+id/tv_display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/welcome_message"
-        android:textSize="30sp"
-        android:layout_alignParentTop="true"
+        android:textSize="30sp" />
+
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="14dp" />
+        android:layout_below="@+id/tv_display"
+        android:hint="1.0"
+        android:inputType="numberDecimal" />
 
-
-   <LinearLayout
-       android:layout_width="386dp"
-       android:layout_height="wrap_content"
-       android:orientation="horizontal">
-
-       <EditText
-           android:id="@+id/input"
-           android:layout_width="91dp"
-           android:layout_height="wrap_content"
-           android:layout_alignParentStart="true"
-           android:layout_below="@+id/tv_display"
-           android:hint="1.0"
-           android:inputType="numberDecimal" />
-
-       <Spinner
-           android:id="@+id/currency_spinner"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_alignBaseline="@+id/input"
-           android:layout_alignBottom="@+id/input"
-           android:layout_alignParentStart="true"
-
-           android:entries="@array/currency_value_from" />
-   </LinearLayout>
-
-    <Button
+    <Spinner
+        android:id="@+id/currency_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_text"
-        android:onClick="submit"
+        android:layout_alignBottom="@+id/input"
+        android:layout_below="@+id/tv_display"
+        android:layout_toEndOf="@+id/input"
+        android:entries="@array/currency_value_from" />
 
-        android:layout_marginTop="23dp"
-        android:layout_below="@+id/input"
-        android:layout_alignParentStart="true"
-        android:id="@+id/button" />
 
     <ListView
         android:id="@+id/rates_display_list_view"
         android:layout_width="match_parent"
-        android:layout_height="270dp"></ListView>
+        android:layout_height="270dp"
+        android:layout_above="@+id/button2"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/input"></ListView>
+
 
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="75dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="18dp"
+        android:gravity="center"
         android:onClick="editCurrencyRates"
         android:text="Edit currency rates" />
 
-</LinearLayout>
+</RelativeLayout>

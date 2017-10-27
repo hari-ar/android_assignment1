@@ -38,7 +38,7 @@ public class ConversionActivity extends Activity {
 
         //Loop to populate hints in edit text
         for (int index = 0; index<6; index++){
-            if(index!=2)//Skip Eur value as it is always 1. and index 2 is Eur value which we are no displaying..
+            if(index!=2)//Skip Eur value as it is always 1. and index 2 is Eur value which we are not displaying..
             editTexts.get(index).setHint(Float.toString(ratesList.get(index)));
         }
 
@@ -64,19 +64,21 @@ public class ConversionActivity extends Activity {
         populateEditTextArrayList();
         for (int index=0;index<6;index++)
         {
-            if(index==2)
+            if(index==2) //This is needed to not skip order..
                 floatlist.add(index,1f); //Setting default value to Eur
             else
             floatlist.add(index,getRateFromInput(index));
         }
 
-        if(flag){
+        if(flag){ // This is needed to check if we need to set values and return
             Toast.makeText(this,"Values are persisted..!!",Toast.LENGTH_SHORT).show();
             Intent result = new Intent(Intent.ACTION_VIEW);
             result.putExtra("rates", floatlist);
             setResult(RESULT_OK, result);
             finish();
         }
+        else
+            Toast.makeText(this,"Invalid conversion rate, please enter a valid rate",Toast.LENGTH_SHORT).show();
     }
 
 
@@ -100,12 +102,12 @@ public class ConversionActivity extends Activity {
             //Validating for 0 input
             if (userEnteredValue == 0){
                 flag = false;
-                Toast.makeText(this,"Invalid conversion rate, 0 is not valid",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this,"Invalid conversion rate, 0 is not valid",Toast.LENGTH_SHORT).show();
                 throw new NumberFormatException();
             }
         }
         catch (NumberFormatException e){
-            return false;
+            return false; //We show toast message to user., indicating invalid rate..!!
         }
         return true;
 

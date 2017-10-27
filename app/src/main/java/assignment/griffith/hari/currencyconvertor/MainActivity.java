@@ -61,11 +61,20 @@ public class MainActivity extends Activity {
 
         inputValue = (EditText) findViewById(R.id.input); //Initialize edit text to read user input value
 
+        inputValue.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                validateInputAndPopulateValues();
+            }
+        });
+
+
         currencyFrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() { //Listener to spinner
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 currencySelected = position; // Updates Spinner position every time it changes.
+                validateInputAndPopulateValues();
 
             }
             @Override
@@ -104,7 +113,7 @@ public class MainActivity extends Activity {
 
     //Method invoked on click of submit button
 
-    public void submit(View args0){
+    public void validateInputAndPopulateValues(){
 
         inputValue = (EditText) findViewById(R.id.input); //Reading input value
 

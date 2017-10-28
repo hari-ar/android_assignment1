@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -51,11 +50,10 @@ public class MainActivity extends Activity {
 
         currencyFrom = (Spinner) findViewById(R.id.currency_spinner); // Initialize spinner
 
-
         // initializeTextViewArray(); // Method to initialize text View Array
         populateListFromTypedArray(getResources().obtainTypedArray(R.array.currency_name_list),nameList);
         populateListFromTypedArray(getResources().obtainTypedArray(R.array.currency_code_list),codeList);
-        populateListFromTypedArrayFloat(getResources().obtainTypedArray(R.array.EUR),ratesList); // Method to read conversion rates from xml and store in to array list for easy navigation and mapping.
+        populateListFromTypedArrayFloat(getResources().obtainTypedArray(R.array.euro_rates),ratesList); // Method to read conversion rates from xml and store in to array list for easy navigation and mapping.
 
 
 

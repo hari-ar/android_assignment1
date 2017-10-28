@@ -78,7 +78,7 @@ public class ConversionActivity extends Activity {
             finish();
         }
         else
-            Toast.makeText(this,"Invalid conversion rate, please enter a valid rate",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Invalid conversion rate, please enter a valid rate",Toast.LENGTH_LONG).show();
     }
 
 

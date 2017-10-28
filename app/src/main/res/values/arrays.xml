@@ -2,7 +2,7 @@
 <resources>
 
 
-    <array name="EUR">
+    <array name="euro_rates">
         <item>1.4648</item>
         <item>1.46788</item>
         <item>1</item>
